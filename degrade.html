@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RibeiroMD · Portefólio</title>
+<link rel="icon" type="image/png" href="img/foto.png">
+<meta name="description" content="Portefólio do RibeiroMD: apps Android e de PC, automações e mods e plugins de Minecraft.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ribeiro-md.github.io/">
+<meta property="og:title" content="RibeiroMD · Portefólio">
+<meta property="og:description" content="Apps Android e de PC, automações e mods e plugins de Minecraft.">
+<meta property="og:image" content="https://ribeiro-md.github.io/img/avatar.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#2a0a24">
+<style>
+  :root {
+    --bg: #1a0016;
+    --bg-alt: #230a1d;
+    --header: #2a0a24;
+    --card: #2b1025;
+    --border: #4a2040;
+    --text: #ffffff;
+    --muted: #d9bfd0;
+    --accent: #a8456a;
+    --accent-soft: #d9a0b4;
+    --ring: #c9779a;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Open Sans", "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  body:has(dialog[open]) { overflow: hidden; }
+  a { color: var(--accent-soft); text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+
+  /* Botões */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 10px; font-weight: 700;
+    border: 1px solid var(--accent);
+    background: var(--accent); color: #fff;
+    transition: transform .15s, filter .15s;
+  }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+  .btn.small { padding: 5px 14px; font-size: 0.9rem; border-radius: 8px; }
+  .btn.ghost { background: transparent; border-color: var(--ring); color: var(--text); }
+  .btn.icon svg { width: 24px; height: 24px; }
+
+  /* Cabeçalho */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--header);
+    border-bottom: 1px solid rgba(255, 255, 255, .04);
+  }
+  nav { display: flex; justify-content: space-between; align-items: center; height: 68px; gap: 16px; }
+  .logo { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .logo span { color: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  .nav-right a.nav-link { color: var(--accent-soft); font-size: 0.82rem; }
+  .nav-right a.nav-link:hover { color: #fff; }
+  .nav-right .nav-link + .nav-link { margin-left: -2px; }
+  .gh {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #000; border: 2px solid var(--ring); color: #fff;
+    transition: transform .15s;
+  }
+  .gh:hover { transform: translateY(-2px); }
+  .gh svg { width: 26px; height: 26px; }
+  html:not([lang="en"]) [lang="en"], html[lang="en"] [lang="pt"] { display: none !important; }
+  .lang { height: 38px; min-width: 46px; padding: 0 12px; border-radius: 999px; background: transparent; border: 2px solid var(--ring); color: var(--accent-soft); font: 700 .8rem ui-monospace, monospace; cursor: pointer; flex: 0 0 auto; }
+  .lang:hover { color: #fff; background: var(--card); }
+
+  /* Hero */
+  .hero { padding: 64px 0 76px; display: flex; align-items: center; }
+  .hero .container { width: 100%; }
+  .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 50px; align-items: center; }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 3rem); line-height: 1.1; margin-bottom: 14px; font-weight: 700; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.lead { color: var(--muted); font-size: 1.08rem; max-width: 500px; }
+  .eyebrow { font: 700 .78rem ui-monospace, Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-soft); margin-bottom: 14px; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .hero-stats { list-style: none; display: flex; gap: 28px; flex-wrap: wrap; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--border); max-width: 500px; }
+  .hero-stats li { display: flex; flex-direction: column; color: var(--muted); font-size: .85rem; }
+  .hero-stats strong { font-size: 1.7rem; line-height: 1.1; color: var(--text); font-variant-numeric: tabular-nums; }
+
+  .avatar-wrap { display: flex; justify-content: center; }
+  .avatar {
+    width: min(246px, 70vw); aspect-ratio: 1; border-radius: 50%;
+    padding: 5px; background: var(--ring);
+  }
+  .avatar img {
+    width: 100%; height: 100%; display: block; border-radius: 50%;
+    object-fit: cover; background: #000;
+  }
+
+  /* Secções */
+  section.block { padding: 70px 0; }
+  section.alt { background: var(--bg-alt); }
+  h2 { font-size: 1.9rem; margin-bottom: 36px; }
+  h2::before { content: "// "; color: var(--accent); font-family: ui-monospace, Menlo, monospace; }
+
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .skill-group { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .skill-group h3 { font-size: 1rem; margin-bottom: 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.82rem;
+    padding: 4px 10px; border-radius: 20px;
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    color: var(--accent-soft);
+  }
+
+  .skill-icons { display: flex; flex-wrap: wrap; gap: 12px; }
+  .skill-ico { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: color-mix(in srgb, var(--accent) 14%, transparent); border: 1px solid var(--border); transition: transform .15s, border-color .15s; }
+  .skill-ico svg { width: 30px; height: 30px; }
+  .skill-ico:hover { transform: translateY(-3px); border-color: var(--ring); }
+  .skill { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 64px; }
+  .skill-name { font-size: 0.72rem; color: var(--muted); text-align: center; line-height: 1.2; }
+
+  .projects {
+    display: flex; flex-wrap: nowrap; gap: 24px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-bottom: 14px;
+    scrollbar-color: var(--accent) transparent;
+  }
+  .project {
+    flex: 0 0 min(300px, 82%); scroll-snap-align: start;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px; display: flex; flex-direction: column;
+    transition: border-color .2s;
+  }
+  .project:hover { border-color: var(--ring); }
+  .project h3 { margin-bottom: 10px; }
+  .project p { color: var(--muted); font-size: 0.95rem; flex: 1; margin-bottom: 16px; }
+  .project .chips { margin-bottom: 16px; }
+  .project .plinks { display: flex; gap: 18px; font-size: 0.9rem; font-weight: 600; }
+
+  .about-text { color: var(--muted); font-size: 1.1rem; max-width: 700px; overflow-wrap: anywhere; }
+
+
+  /* Separadores de projetos */
+  .tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tab {
+    padding: 9px 20px; border-radius: 999px; background: transparent;
+    border: 1px solid var(--border); color: var(--muted); font-weight: 700; font-size: 0.93rem;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .tab:hover { border-color: var(--ring); color: var(--text); }
+  .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .tab .count { opacity: .75; font-weight: 500; margin-left: 4px; }
+  .tab-desc { color: var(--muted); margin-bottom: 26px; min-height: 1.6em; }
+  .subrow { display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+  .subrow .statsbtn { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; font-size: 0.85rem; }
+  .subrow .statsbtn[hidden] { display: none; }
+  .statsbtn svg { width: 16px; height: 16px; }
+  .tabs[hidden] { display: none; }
+  .subtabs { margin: 0 0 14px 6px; padding-left: 14px; border-left: 2px solid var(--border); }
+  .subtabs .tab { padding: 6px 16px; font-size: 0.85rem; }
+  .pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px; }
+  .pgrid .project { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; animation: fade .25s ease-out; }
+  .pgrid .project:hover { transform: translateY(-3px); }
+  .project .tag { font-size: 0.75rem; color: var(--accent-soft); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+  .project .more { margin-top: 16px; font-size: 0.88rem; font-weight: 700; color: var(--accent-soft); }
+  .badge { display: inline-block; margin-left: 8px; padding: 1px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; vertical-align: middle; background: var(--accent); color: #fff; }
+  .badge.dev { background: transparent; border: 1px solid var(--ring); color: var(--accent-soft); }
+  .dl { display: block; margin-top: 14px; font-size: 0.85rem; font-weight: 700; color: var(--accent-soft); }
+  .dl-line { font-weight: 700; color: var(--accent-soft) !important; }
+  /* Cartões de projeto */
+  .pgrid .project { align-items: stretch; padding: 24px 22px 18px; text-align: left; }
+  .pgrid .project .tag { text-align: center; margin-bottom: 6px; }
+  .pgrid .project h3 { text-align: center; font-size: 1.25rem; margin-bottom: 14px; }
+  .pgrid .project p { margin-bottom: 14px; }
+  .pgrid .project .dl { margin: 0 0 14px; }
+  .pfoot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+  .pfoot .plinks { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.82rem; font-weight: 600; margin: 0; }
+  .pfoot .plinks a, .pfoot .plinks span { color: var(--accent-soft); }
+  .pfoot .plinks a:hover { color: #fff; text-decoration: underline; }
+  .pfoot .plinks a.testa { background: var(--accent); color: #fff; padding: 5px 14px; border-radius: 999px; transition: background .15s; }
+  .pfoot .plinks a.testa:hover { background: var(--ring); text-decoration: none; }
+  .pico { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+  .pico-i { display: inline-flex; width: 26px; height: 26px; }
+  .pico-i svg { width: 100%; height: 100%; }
+  /* Capa do cartão: captura do projeto, ou um fundo com o ícone quando não há */
+  .capa {
+    margin: -24px -22px 18px; height: 130px; overflow: hidden;
+    border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+    border-bottom: 1px solid var(--border); background: #120010;
+  }
+  .capa img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top; transition: transform .4s ease; }
+  .project:hover .capa img { transform: scale(1.03); }
+  .capa.vazia {
+    display: grid; place-items: center;
+    background:
+      radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 60%),
+      repeating-linear-gradient(45deg, transparent 0 14px, rgba(255, 255, 255, .025) 14px 15px),
+      #1d0619;
+  }
+  .capa.vazia svg { width: 44px; height: 44px; filter: drop-shadow(0 8px 20px rgba(0, 0, 0, .5)); }
+  .capa.vazia img { width: 44px; height: auto; object-fit: contain; image-rendering: pixelated; }
+
+  /* Destaques: três colunas iguais e a última linha centrada */
+  .pgrid.destaques { display: flex; flex-wrap: wrap; justify-content: center; }
+  .pgrid.destaques .project { flex: 0 0 calc((100% - 44px) / 3); min-width: 0; }
+  @media (max-width: 901px) { .pgrid.destaques .project { flex-basis: calc((100% - 22px) / 2); } }
+
+  #dlg-projeto .dlg-capa { width: 100%; display: block; border-bottom: 1px solid var(--border); }
+  .pgrid .project:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* Janela de detalhes do projeto */
+  #dlg-projeto .dlg-head { align-items: flex-start; }
+  #dlg-projeto .dlg-head .tag { font-size: 0.75rem; color: var(--accent-soft); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  #dlg-projeto .dlg-body p { color: var(--muted); margin-bottom: 18px; }
+  #dlg-projeto .dlg-body h4 { font-size: 1rem; margin-bottom: 8px; }
+  #dlg-projeto .dlg-body ul { margin: 0 0 20px 20px; color: var(--muted); }
+  #dlg-projeto .dlg-body li + li { margin-top: 4px; }
+  #dlg-projeto .dlg-body .chips { margin-bottom: 22px; }
+  .dlg-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .dlg-links .privado { align-self: center; font-weight: 600; color: var(--accent-soft); }
+
+  /* Atividade no GitHub */
+  .gh-activity { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .gh-total { color: var(--muted); font-size: 0.95rem; margin-bottom: 16px; }
+  .gh-total strong { color: var(--text); font-size: 1.15rem; }
+  .gh-scroll { overflow-x: auto; padding-bottom: 8px; scrollbar-color: var(--accent) transparent; }
+  .gh-inner { width: max-content; }
+  .gh-months, .gh-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 12px; gap: 3px; }
+  .gh-months { grid-template-rows: 16px; margin-bottom: 4px; font-size: 0.72rem; color: var(--muted); }
+  .gh-months span { white-space: nowrap; }
+  .gh-grid { grid-template-rows: repeat(7, 12px); }
+  .gh-cell { width: 12px; height: 12px; border-radius: 3px; background: #35122e; }
+  .gh-cell.l1 { background: #66284f; }
+  .gh-cell.l2 { background: #7f3260; }
+  .gh-cell.l3 { background: var(--accent); }
+  .gh-cell.l4 { background: var(--accent-soft); }
+  .gh-legend { display: flex; align-items: center; gap: 4px; justify-content: flex-end; margin-top: 12px; font-size: 0.75rem; color: var(--muted); }
+  .gh-legend .gh-cell { width: 11px; height: 11px; }
+
+  .gh-profile { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+  .gh-pic { width: 110px; height: 110px; flex: none; border-radius: 50%; border: 4px solid var(--ring); background: #000; object-fit: cover; overflow: hidden; font-size: 0.7rem; color: var(--muted); text-align: center; }
+  .gh-info h3 { font-size: 1.5rem; line-height: 1.2; }
+  .gh-bio { color: var(--muted); margin: 4px 0 14px; max-width: 520px; overflow-wrap: anywhere; }
+  .gh-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .gh-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .gh-stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .gh-stat strong { display: block; font-size: 1.6rem; line-height: 1.2; color: var(--accent-soft); }
+  .gh-stat span { color: var(--muted); font-size: 0.85rem; }
+  .gh-activity { margin-bottom: 36px; }
+  @media (max-width: 480px) { .gh-profile { justify-content: center; text-align: center; } .gh-actions { justify-content: center; } }
+  .cta { text-align: center; }
+  .cta p { color: var(--muted); max-width: 520px; margin: 0 auto 26px; }
+  .cta .link-list { max-width: 520px; margin: 0 auto; text-align: left; }
+
+  footer { border-top: 1px solid var(--border); padding: 26px 0; color: var(--muted); font-size: 0.88rem; }
+  footer .container { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; text-align: center; }
+  footer .foto { width: 34px; height: 34px; border-radius: 50%; }
+  footer .dmr { height: 48px; width: auto; transform: rotate(-12deg); }
+
+  /* Janelas */
+  dialog {
+    margin: auto; border: 1px solid var(--border); border-radius: 20px;
+    background: var(--card); color: var(--text);
+    width: min(520px, calc(100% - 32px)); max-height: calc(100% - 48px);
+    padding: 0; overflow: auto;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
+  }
+  dialog[open] { animation: pop .2s ease-out; }
+  dialog::backdrop { background: rgba(14, 0, 12, .75); backdrop-filter: blur(4px); }
+  @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+  .dlg-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 24px; border-bottom: 1px solid var(--border);
+  }
+  .dlg-head h3 { font-size: 1.2rem; }
+  .dlg-head h3::before { content: "// "; color: var(--accent); font-family: ui-monospace, Menlo, monospace; }
+  .close {
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    width: 34px; height: 34px; border-radius: 50%; font-size: 1.1rem; line-height: 1;
+  }
+  .close:hover { color: #fff; border-color: var(--ring); }
+  .dlg-body { padding: 24px; }
+
+  .link-list { display: grid; gap: 12px; }
+  .link-item {
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+    border: 1px solid var(--border); border-radius: 14px; color: var(--text);
+    background: var(--bg-alt); transition: border-color .15s, transform .15s;
+  }
+  .link-item:hover { border-color: var(--ring); transform: translateX(4px); }
+  .link-item svg { width: 24px; height: 24px; flex: none; color: var(--accent-soft); }
+  .link-item strong { display: block; line-height: 1.2; }
+  .link-item small { color: var(--muted); }
+  .link-item .arrow { margin-left: auto; color: var(--muted); }
+
+  @media (max-width: 760px) {
+    .hero { padding: 40px 0 60px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 34px; text-align: center; }
+    .hero p.lead, .hero-stats { margin-left: auto; margin-right: auto; }
+    .hero-btns, .hero-stats { justify-content: center; }
+    .avatar-wrap { order: -1; }
+  }
+  @media (max-width: 480px) {
+    .logo { font-size: 0.85rem; }
+    .nav-right { gap: 10px; }
+    .nav-right a.nav-link { display: none; }
+  }
+  /* Telemóvel: só afeta ecrãs pequenos, o PC fica igual */
+  @media (max-width: 640px) {
+    header { position: static; }
+
+    .tabs { gap: 6px; }
+    .tab { padding: 8px 13px; font-size: 0.82rem; white-space: nowrap; }
+    .subtabs { margin-left: 0; padding-left: 10px; }
+    .subtabs .tab, .subrow .statsbtn { padding: 6px 12px; font-size: 0.8rem; }
+    .tab-desc { font-size: 0.9rem; margin-bottom: 18px; }
+
+    /* abas numa só linha que desliza, com a ponta a desvanecer para se perceber que há mais */
+    #tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -24px; padding-right: 24px;
+            mask-image: linear-gradient(to right, #000 85%, transparent); }
+    #tabs::-webkit-scrollbar { display: none; }
+
+    .pgrid { grid-template-columns: 1fr; gap: 12px; }
+    .pgrid.destaques .project { flex-basis: 100%; }
+    .pgrid .project { padding: 16px 16px 14px; }
+    .capa { height: 110px; margin: -16px -16px 14px; }
+    .pgrid .project h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .pgrid .project p { font-size: 0.86rem; margin-bottom: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    dialog[open] { animation: none; }
+    .btn, .project, .link-item, .gh { transition: none; }
+    .pgrid .project { animation: none; }
+    .tab { transition: none; }
+  }
+
+  /* Variante com degradê: capa mais baixa, esbatida e a desvanecer para o cartão */
+  .capa { height: 84px; margin-bottom: 14px; border-bottom: 0;
+          -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); }
+  .capa img { opacity: .75; transition: opacity .3s ease, transform .4s ease; }
+  .project:hover .capa img { opacity: 1; }
+  .capa.vazia svg, .capa.vazia img { width: 34px; height: auto; }
+  @media (max-width: 480px) { .capa { height: 70px; margin-bottom: 10px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a class="logo" href="#inicio">&lt; <span>RibeiroMD</span>/&gt;</a>
+      <div class="nav-right">
+        <a class="nav-link" href="#projetos"><span lang="pt">Projetos</span><span lang="en">Projects</span></a>
+        <a class="nav-link" href="#competencias"><span lang="pt">Competências</span><span lang="en">Skills</span></a>
+        <a class="nav-link" href="#github">GitHub</a>
+        <a class="btn small" href="#contactos"><span lang="pt">Contactos</span><span lang="en">Contact</span></a>
+        <a class="gh" href="https://github.com/Ribeiro-MD" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+        </a>
+        <button class="lang" id="lang" type="button" aria-label="Mudar idioma / Change language">ENG</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow"><span lang="pt">Apps · Automações · Minecraft</span><span lang="en">Apps · Automations · Minecraft</span></p>
+        <h1>Ribeiro<em>MD</em></h1>
+        <p class="lead">
+          <span lang="pt">Olá, sou o Ribeiro! Faço apps Android e de PC, automações para Linux e mods e plugins de Minecraft.</span><span lang="en">Hi, I'm Ribeiro! I build Android and desktop apps, Linux automations, and Minecraft mods and plugins.</span>
+        </p>
+        <div class="hero-btns">
+          <a class="btn" href="#projetos"><span lang="pt">Ver projetos</span><span lang="en">See projects</span></a>
+          <a class="btn ghost" href="#contactos"><span lang="pt">Contactos</span><span lang="en">Contact</span></a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong id="hero-projetos">–</strong><span lang="pt">projetos</span><span lang="en">projects</span></li>
+          <li><strong>770</strong><span lang="pt">downloads no CurseForge</span><span lang="en">CurseForge downloads</span></li>
+        </ul>
+      </div>
+      <div class="avatar-wrap">
+        <div class="avatar"><img src="img/avatar.png" alt="Avatar do Ribeiro: personagem de cabelo castanho a saborear uma chávena de café"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt" id="projetos">
+    <div class="container">
+      <h2><span lang="pt">Projetos</span><span lang="en">Projects</span></h2>
+      <div class="tabs" role="tablist" aria-label="Categorias de projetos" id="tabs"></div>
+      <div class="subrow">
+        <div class="tabs subtabs" role="tablist" aria-label="Subcategorias" id="subtabs" hidden></div>
+        <a class="tab statsbtn" id="statsbtn" href="https://ribeiro-md.github.io/DMRCFStatus/" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-4M11 16V8M15 16v-6M19 16V5"/></svg><span lang="pt">Página de estatísticas</span><span lang="en">Stats page</span></a>
+      </div>
+      <p class="tab-desc" id="tab-desc"></p>
+      <div class="pgrid" id="grid" role="tabpanel"></div>
+    </div>
+  </section>
+
+  <section class="block" id="competencias">
+    <div class="container">
+      <h2><span lang="pt">Competências</span><span lang="en">Skills</span></h2>
+      <div class="skills">
+        <div class="skill-group">
+          <h3>Front-end</h3>
+          <div class="skill-icons"><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><path fill="#E44D26" d="M19.037 113.876L9.032 1.661h109.936l-10.016 112.198-45.019 12.48z"/><path fill="#F16529" d="M64 116.8l36.378-10.086 8.559-95.878H64z"/><path fill="#EBEBEB" d="M64 52.455H45.788L44.53 38.361H64V24.599H29.489l.33 3.692 3.382 37.927H64zm0 35.743l-.061.017-15.327-4.14-.979-10.975H33.816l1.928 21.609 28.193 7.826.063-.017z"/><path fill="#fff" d="M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.143v14.319l28.215-7.82.207-2.325 3.234-36.233.335-3.696h-3.708zm0-27.856v13.762h33.244l.276-3.092.628-6.978.329-3.692z"/></svg></span><span class="skill-name">HTML</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><path fill="#1572B6" d="M18.814 114.123L8.76 1.352h110.48l-10.064 112.754-45.243 12.543-45.119-12.526z"/><path fill="#33A9DC" d="M64.001 117.062l36.559-10.136 8.601-96.354h-45.16v106.49z"/><path fill="#fff" d="M64.001 51.429h18.302l1.264-14.163H64.001V23.435h34.682l-.332 3.711-3.4 38.114h-30.95V51.429z"/><path fill="#EBEBEB" d="M64.083 87.349l-.061.018-15.403-4.159-.985-11.031H33.752l1.937 21.717 28.331 7.863.063-.018v-14.39z"/><path fill="#fff" d="M81.127 64.675l-1.666 18.522-15.426 4.164v14.39l28.354-7.858.208-2.337 2.406-26.881H81.127z"/><path fill="#EBEBEB" d="M64.048 23.435v13.831H30.64l-.277-3.108-.63-7.012-.331-3.711h34.646zm-.047 27.996v13.831H48.792l-.277-3.108-.631-7.012-.33-3.711h16.447z"/></svg></span><span class="skill-name">CSS</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><path fill="#F0DB4F" d="M1.408 1.408h125.184v125.185H1.408z"/><path fill="#323330" d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z"/></svg></span><span class="skill-name">JavaScript</span></span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Back-end</h3>
+          <div class="skill-icons"><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><path fill="url(#nodejs-a)" d="M66.958.825a6.07 6.07 0 0 0-6.035 0L11.103 29.76c-1.895 1.072-2.96 3.095-2.96 5.24v57.988c0 2.143 1.183 4.167 2.958 5.24l49.82 28.934a6.07 6.07 0 0 0 6.036 0l49.82-28.935c1.894-1.072 2.958-3.096 2.958-5.24V35c0-2.144-1.183-4.167-2.958-5.24z"/><path fill="url(#nodejs-b)" d="M116.897 29.76 66.841.825A8.161 8.161 0 0 0 65.302.23L9.21 96.798a6.251 6.251 0 0 0 1.657 1.43l50.057 28.934c1.42.833 3.076 1.072 4.615.595l52.66-96.925a3.702 3.702 0 0 0-1.302-1.072z"/><path fill="url(#nodejs-c)" d="M116.898 98.225c1.42-.833 2.485-2.262 2.958-3.81L65.066.108c-1.42-.238-2.959-.119-4.26.715L11.104 29.639l53.606 98.355c.71-.12 1.54-.358 2.25-.715z"/><defs><linearGradient id="nodejs-a" x1="34.513" x2="27.157" y1="15.535" y2="30.448" gradientTransform="translate(-129.242 -73.715) scale(6.18523)" gradientUnits="userSpaceOnUse"><stop stop-color="#3F873F"/><stop offset=".33" stop-color="#3F8B3D"/><stop offset=".637" stop-color="#3E9638"/><stop offset=".934" stop-color="#3DA92E"/><stop offset="1" stop-color="#3DAE2B"/></linearGradient><linearGradient id="nodejs-b" x1="30.009" x2="50.533" y1="23.359" y2="8.288" gradientTransform="translate(-129.242 -73.715) scale(6.18523)" gradientUnits="userSpaceOnUse"><stop offset=".138" stop-color="#3F873F"/><stop offset=".402" stop-color="#52A044"/><stop offset=".713" stop-color="#64B749"/><stop offset=".908" stop-color="#6ABF4B"/></linearGradient><linearGradient id="nodejs-c" x1="21.917" x2="40.555" y1="22.261" y2="22.261" gradientTransform="translate(-129.242 -73.715) scale(6.18523)" gradientUnits="userSpaceOnUse"><stop offset=".092" stop-color="#6ABF4B"/><stop offset=".287" stop-color="#64B749"/><stop offset=".598" stop-color="#52A044"/><stop offset=".862" stop-color="#3F873F"/></linearGradient></defs></svg></span><span class="skill-name">Node.js</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><linearGradient id="python-python-original-a" gradientUnits="userSpaceOnUse" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stop-color="#5A9FD4"/><stop offset="1" stop-color="#306998"/></linearGradient><linearGradient id="python-python-original-b" gradientUnits="userSpaceOnUse" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#FFE873"/></linearGradient><path fill="url(#python-python-original-a)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" transform="translate(0 10.26)"/><path fill="url(#python-python-original-b)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" transform="translate(0 10.26)"/><radialGradient id="python-python-original-c" cx="1825.678" cy="444.45" r="26.743" gradientTransform="matrix(0 -.24 -1.055 0 532.979 557.576)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#B8B8B8" stop-opacity=".498"/><stop offset="1" stop-color="#7F7F7F" stop-opacity="0"/></radialGradient><path opacity=".444" fill="url(#python-python-original-c)" d="M97.309 119.597c0 3.543-14.816 6.416-33.091 6.416-18.276 0-33.092-2.873-33.092-6.416 0-3.544 14.815-6.417 33.092-6.417 18.275 0 33.091 2.872 33.091 6.417z"/></svg></span><span class="skill-name">Python</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><path fill="#0074BD" d="M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092 0 0 2.871 1.795 6.873 3.351-24.439 10.47-55.308-.607-36.115-5.969zm-2.988-13.665s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6 0 0 1.993 2.025 5.132 3.131-29.542 8.64-62.446.68-41.309-6.336z"/><path fill="#EA2D2E" d="M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58 0 .001-42.731 10.67-22.324 34.187z"/><path fill="#0074BD" d="M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171-4.451-1.938 3.899-4.625 6.526-5.192 2.739-.593 4.303-.485 4.303-.485-4.953-3.487-32.013 6.85-13.743 9.815 49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326 9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958 10.832-5.239 19.644-4.643 19.644-4.643zm40.697 22.747c23.421-12.167 12.591-23.86 5.032-22.285-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725 0-.002.359-.327.468-.617z"/><path fill="#EA2D2E" d="M76.491 1.587S89.459 14.563 64.188 34.51c-20.266 16.006-4.621 25.13-.007 35.559-11.831-10.673-20.509-20.07-14.688-28.815C58.041 28.42 81.722 22.195 76.491 1.587z"/><path fill="#0074BD" d="M52.214 126.021c22.476 1.437 57-.8 57.817-11.436 0 0-1.571 4.032-18.577 7.231-19.186 3.612-42.854 3.191-56.887.874 0 .001 2.875 2.381 17.647 3.331z"/></svg></span><span class="skill-name">Java</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><path fill="#9B4F96" d="M115.4 30.7L67.1 2.9c-.8-.5-1.9-.7-3.1-.7-1.2 0-2.3.3-3.1.7l-48 27.9c-1.7 1-2.9 3.5-2.9 5.4v55.7c0 1.1.2 2.4 1 3.5l106.8-62c-.6-1.2-1.5-2.1-2.4-2.7z"/><path fill="#68217A" d="M10.7 95.3c.5.8 1.2 1.5 1.9 1.9l48.2 27.9c.8.5 1.9.7 3.1.7 1.2 0 2.3-.3 3.1-.7l48-27.9c1.7-1 2.9-3.5 2.9-5.4V36.1c0-.9-.1-1.9-.6-2.8l-106.6 62z"/><path fill="#fff" d="M85.3 76.1C81.1 83.5 73.1 88.5 64 88.5c-13.5 0-24.5-11-24.5-24.5s11-24.5 24.5-24.5c9.1 0 17.1 5 21.3 12.5l13-7.5c-6.8-11.9-19.6-20-34.3-20-21.8 0-39.5 17.7-39.5 39.5s17.7 39.5 39.5 39.5c14.6 0 27.4-8 34.2-19.8l-12.9-7.6zM97 66.2l.9-4.3h-4.2v-4.7h5.1L100 51h4.9l-1.2 6.1h3.8l1.2-6.1h4.8l-1.2 6.1h2.4v4.7h-3.3l-.9 4.3h4.2v4.7h-5.1l-1.2 6h-4.9l1.2-6h-3.8l-1.2 6h-4.8l1.2-6h-2.4v-4.7H97zm4.8 0h3.8l.9-4.3h-3.8l-.9 4.3z"/></svg></span><span class="skill-name">C#</span></span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Mobile</h3>
+          <div class="skill-icons"><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><defs> <linearGradient id="kotlin-a" x1="500.003" x2="-.097" y1="579.106" y2="1079.206" gradientTransform="translate(15.534 -96.774) scale(.1939)" gradientUnits="userSpaceOnUse"> <stop offset=".003" stop-color="#e44857"/> <stop offset=".469" stop-color="#c711e1"/> <stop offset="1" stop-color="#7f52ff"/> </linearGradient> </defs> <path fill="url(#kotlin-a)" d="M112.484 112.484H15.516V15.516h96.968L64 64Zm0 0"/></svg></span><span class="skill-name">Kotlin</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><path fill="#fff" d="M21.012 91.125c-5.538.003-10.038-4.503-10.039-10.04l-.002-30.739c-.002-5.532 4.497-10.037 10.028-10.038 2.689-.002 5.207 1.041 7.105 2.937s2.942 4.418 2.944 7.099l-.003 30.74a9.924 9.924 0 01-2.931 7.094 9.962 9.962 0 01-7.102 2.947m-.008-48.12c-4.053-.002-7.338 3.291-7.339 7.341l.005 30.736a7.347 7.347 0 007.341 7.348 7.338 7.338 0 007.339-7.347V50.342a7.345 7.345 0 00-7.346-7.337"/><path fill="#fff" d="M99.742 44.527l-2.698-.001-66.119.009-2.699.001-.002-2.699c-.006-11.08 6.03-21.385 15.917-27.473l-3.844-7.017c-.47-.822-.588-1.863-.314-2.815a3.732 3.732 0 011.814-2.239 3.605 3.605 0 011.759-.447c1.362 0 2.609.739 3.267 1.933l4.023 7.329a37.842 37.842 0 0113.099-2.305c4.606-.002 9.023.777 13.204 2.311l4.017-7.341a3.711 3.711 0 013.263-1.932 3.712 3.712 0 011.761.438A3.706 3.706 0 0188 4.524a3.69 3.69 0 01-.318 2.832l-3.842 7.013c9.871 6.101 15.9 16.398 15.899 27.459l.003 2.699zM80.196 15.403l5.123-9.355a1.019 1.019 0 10-1.783-.981l-5.176 9.45c-4.354-1.934-9.229-3.021-14.382-3.016-5.142-.005-10.008 1.078-14.349 3.005l-5.181-9.429a1.009 1.009 0 00-1.379-.405c-.497.266-.68.891-.403 1.379l5.125 9.348c-10.07 5.194-16.874 15.084-16.868 26.439l66.118-.008c.003-11.351-6.789-21.221-16.845-26.427M48.94 29.86a2.772 2.772 0 01.003-5.545 2.78 2.78 0 012.775 2.774 2.775 2.775 0 01-2.778 2.771m30.107-.006a2.767 2.767 0 01-2.772-2.771 2.788 2.788 0 012.773-2.778 2.79 2.79 0 012.767 2.779 2.769 2.769 0 01-2.768 2.77m-27.336 96.305c-5.533-.001-10.036-4.501-10.037-10.038l-.002-13.567-2.638.003a10.453 10.453 0 01-7.448-3.082 10.437 10.437 0 01-3.083-7.452l-.01-47.627v-2.701h2.699l65.623-.01 2.7-.002v2.699l.007 47.633c.001 5.809-4.725 10.536-10.532 10.535l-2.654.002.003 13.562c0 5.534-4.502 10.039-10.033 10.039a9.933 9.933 0 01-7.098-2.937 9.952 9.952 0 01-2.947-7.096v-13.568H61.75v13.565c-.002 5.535-4.503 10.043-10.039 10.042"/><path fill="#fff" d="M31.205 92.022a7.82 7.82 0 007.831 7.837h5.333l.006 16.264c-.001 4.05 3.289 7.341 7.335 7.342a7.342 7.342 0 007.338-7.348l.001-16.259 9.909-.003-.001 16.263c.004 4.051 3.298 7.346 7.343 7.338 4.056.003 7.344-3.292 7.343-7.344l-.005-16.259 5.353-.001c4.319.001 7.832-3.508 7.832-7.837l-.009-47.635-65.621.012.012 47.63zm75.791-.91c-5.536.001-10.039-4.498-10.038-10.036l-.008-30.738c.002-5.537 4.498-10.041 10.031-10.041 5.54-.001 10.046 4.502 10.045 10.038l.003 30.736c.001 5.534-4.498 10.042-10.033 10.041m-.01-48.116c-4.053-.004-7.337 3.287-7.337 7.342l.003 30.737a7.336 7.336 0 007.342 7.34 7.338 7.338 0 007.338-7.343l-.008-30.736a7.335 7.335 0 00-7.338-7.34"/><path fill="#A4C439" d="M21.004 43.005c-4.053-.002-7.338 3.291-7.339 7.341l.005 30.736a7.338 7.338 0 007.342 7.343 7.33 7.33 0 007.338-7.342V50.342a7.345 7.345 0 00-7.346-7.337m59.192-27.602l5.123-9.355a1.023 1.023 0 00-.401-1.388 1.022 1.022 0 00-1.382.407l-5.175 9.453c-4.354-1.938-9.227-3.024-14.383-3.019-5.142-.005-10.013 1.078-14.349 3.005l-5.181-9.429a1.01 1.01 0 00-1.378-.406 1.007 1.007 0 00-.404 1.38l5.125 9.349c-10.07 5.193-16.874 15.083-16.868 26.438l66.118-.008c.003-11.351-6.789-21.221-16.845-26.427M48.94 29.86a2.772 2.772 0 01.003-5.545 2.78 2.78 0 012.775 2.774 2.775 2.775 0 01-2.778 2.771m30.107-.006a2.77 2.77 0 01-2.772-2.771 2.793 2.793 0 012.773-2.778 2.79 2.79 0 012.767 2.779 2.767 2.767 0 01-2.768 2.77M31.193 44.392l.011 47.635a7.822 7.822 0 007.832 7.831l5.333.002.006 16.264c-.001 4.05 3.291 7.342 7.335 7.342 4.056 0 7.342-3.295 7.343-7.347l-.004-16.26 9.909-.003.004 16.263c0 4.047 3.293 7.346 7.338 7.338 4.056.003 7.344-3.292 7.343-7.344l-.005-16.259 5.352-.004a7.835 7.835 0 007.836-7.834l-.009-47.635-65.624.011zm83.134 5.943a7.338 7.338 0 00-7.341-7.339c-4.053-.004-7.337 3.287-7.337 7.342l.006 30.738a7.334 7.334 0 007.339 7.339 7.337 7.337 0 007.338-7.343l-.005-30.737z"/></svg></span><span class="skill-name">Android</span></span></div>
+        </div>
+        <div class="skill-group">
+          <h3>Minecraft</h3>
+          <div class="skill-icons"><span class="skill"><span class="skill-ico"><svg viewBox="-2 0 56 56" aria-hidden="true"><image width="52" height="56" style="image-rendering:pixelated" href="img/fabric.png"/></svg></span><span class="skill-name">Fabric</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 128 128" aria-hidden="true"><image width="128" height="128" style="image-rendering:pixelated" href="img/neoforge.png"/></svg></span><span class="skill-name">NeoForge</span></span><span class="skill"><span class="skill-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" fill="#E7E7E7"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Arial,sans-serif" fill="#1a0016">P</text></svg></span><span class="skill-name">Paper</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt" id="github">
+    <div class="container">
+      <h2>GitHub</h2>
+
+      <div class="gh-profile">
+        <img class="gh-pic" src="https://github.com/Ribeiro-MD.png?size=200" onerror="this.onerror=null;this.src='img/foto.png'" alt="Foto de perfil do GitHub">
+        <div class="gh-info">
+          <h3>Ribeiro-MD</h3>
+          <p class="gh-bio" id="gh-bio"><span lang="pt">O meu código, mods e experiências.</span><span lang="en">My code, mods and experiments.</span></p>
+          <div class="gh-actions">
+            <a class="btn" href="https://github.com/Ribeiro-MD" target="_blank" rel="noopener"><span lang="pt">Abrir perfil</span><span lang="en">Open profile ↗</span></a>
+            <a class="btn ghost" href="https://github.com/Ribeiro-MD?tab=repositories" target="_blank" rel="noopener"><span lang="pt">Repositórios</span><span lang="en">Repositories</span></a>
+            <a class="btn ghost" href="https://github.com/Ribeiro-MD?tab=followers" target="_blank" rel="noopener"><span lang="pt">Seguir</span><span lang="en">Follow</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gh-stats">
+        <div class="gh-stat"><strong id="gh-projetos">–</strong><span><span lang="pt">Projetos</span><span lang="en">Projects</span></span></div>
+        <div class="gh-stat"><strong id="gh-downloads">770</strong><span><span lang="pt">Downloads no CurseForge</span><span lang="en">CurseForge downloads</span></span></div>
+        <div class="gh-stat" id="gh-contribs-card" hidden><strong id="gh-contribs"></strong><span><span lang="pt">Contribuições (mês)</span><span lang="en">Contributions (month)</span></span></div>
+      </div>
+
+      <div class="gh-activity" id="gh-activity">
+        <p class="gh-total" id="gh-total" aria-live="polite"><span lang="pt">A carregar contribuições…</span><span lang="en">Loading contributions…</span></p>
+        <div class="gh-scroll" id="gh-scroll">
+          <div class="gh-inner">
+            <div class="gh-months" id="gh-months"></div>
+            <div class="gh-grid" id="gh-grid" role="img" aria-label="Gráfico de contribuições do GitHub nos últimos 6 meses"></div>
+          </div>
+        </div>
+        <div class="gh-legend" aria-hidden="true"><span lang="pt">Menos</span><span lang="en">Less</span> <span class="gh-cell"></span><span class="gh-cell l1"></span><span class="gh-cell l2"></span><span class="gh-cell l3"></span><span class="gh-cell l4"></span> <span lang="pt">Mais</span><span lang="en">More</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block cta" id="contactos">
+    <div class="container">
+      <h2><span lang="pt">Contactos</span><span lang="en">Contact</span></h2>
+      <p><span lang="pt">Tens um projeto em mente ou queres simplesmente trocar ideias? Fala comigo.</span><span lang="en">Got a project in mind or just want to bounce some ideas around? Talk to me.</span></p>
+      <div class="link-list">
+        <a class="link-item" href="mailto:devribeiromd@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <div><strong>Email</strong><small>devribeiromd@gmail.com</small></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="link-item" href="https://www.linkedin.com/in/daniel-ribeiro-5b532934a/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          <div><strong>LinkedIn</strong><small><span lang="pt">O meu perfil profissional</span><span lang="en">My professional profile</span></small></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="link-item" href="https://github.com/Ribeiro-MD" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+          <div><strong>GitHub</strong><small><span lang="pt">O meu código e projetos</span><span lang="en">My code and projects</span></small></div>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container"><img class="foto" src="img/foto.png" alt="RibeiroMD"><span>© <span id="ano"></span> RibeiroMD.</span><img class="dmr" src="img/dmr.png" alt="DMR"></div>
+</footer>
+
+<!-- Janela: detalhes do projeto (preenchida por JS) -->
+<dialog id="dlg-projeto" aria-labelledby="dlg-title">
+  <div class="dlg-head">
+    <div>
+      <span class="tag" id="dlg-tag"></span>
+      <h3 id="dlg-title"></h3>
+    </div>
+    <button class="close" data-close aria-label="Fechar">✕</button>
+  </div>
+  <div class="dlg-body" id="dlg-body"></div>
+</dialog>
+
+<script src="projetos.js"></script>
+<script>
+  window.aoMudarIdioma = [];
+
+  (function () {
+    var USER = "Ribeiro-MD";
+    var total = document.getElementById("gh-total");
+    var en = function () { return document.documentElement.lang === "en"; };
+    var MESES = { pt: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"], en: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"] };
+    var estado = null;
+    function escreverTextos() {
+      if (estado != null) {
+        total.innerHTML = '<strong>' + estado + '</strong> ' + (en() ? "contributions in the last 6 months" : "contribuições nos últimos 6 meses");
+        document.querySelectorAll("#gh-months span").forEach(function (s) { s.textContent = MESES[en() ? "en" : "pt"][+s.dataset.m]; });
+        document.querySelectorAll("#gh-grid .gh-cell").forEach(function (c) { c.title = c.dataset.n + (en() ? " contributions on " : " contribuições em ") + c.dataset.d; });
+      }
+    }
+    window.aoMudarIdioma.push(escreverTextos);
+    // se a API falhar, a caixa do gráfico e o cartão do mês ficam escondidos
+    function fail() {
+      document.getElementById("gh-activity").hidden = true;
+    }
+    fetch("https://github-contributions-api.jogruber.de/v4/" + USER + "?y=last")
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (data) {
+        // só os últimos 6 meses: o ano inteiro tinha meses vazios que davam a ideia de parado
+        var days = (data.contributions || []).slice(-182);
+        if (!days.length) return fail();
+        var grid = document.getElementById("gh-grid");
+        var months = document.getElementById("gh-months");
+        var sum = 0, col = 1, lastMonth = -1, lastLabelCol = -10;
+        var first = new Date(days[0].date + "T00:00:00");
+        var offset = first.getDay(); // 0 = domingo
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < offset; i++) {
+          var pad = document.createElement("div");
+          pad.style.visibility = "hidden";
+          frag.appendChild(pad);
+        }
+        days.forEach(function (d, idx) {
+          var pos = idx + offset;
+          col = Math.floor(pos / 7) + 1;
+          var dt = new Date(d.date + "T00:00:00");
+          if (dt.getDay() === 0 || idx === 0) {
+            var m = dt.getMonth();
+            if (m !== lastMonth && col - lastLabelCol >= 3) {
+              var s = document.createElement("span");
+              s.dataset.m = m;
+              s.style.gridColumn = col;
+              months.appendChild(s);
+              lastLabelCol = col;
+            }
+            lastMonth = m;
+          }
+          sum += d.count;
+          var c = document.createElement("div");
+          c.className = "gh-cell" + (d.level ? " l" + d.level : "");
+          c.dataset.n = d.count; c.dataset.d = d.date;
+          frag.appendChild(c);
+        });
+        grid.appendChild(frag);
+        var n = sum;
+        estado = n;
+        escreverTextos();
+        var mesAtual = days[days.length - 1].date.slice(0, 7), doMes = 0;
+        days.forEach(function (d) { if (d.date.slice(0, 7) === mesAtual) doMes += d.count; });
+        document.getElementById("gh-contribs").textContent = doMes;
+        document.getElementById("gh-contribs-card").hidden = false;
+        var sc = document.getElementById("gh-scroll");
+        sc.scrollLeft = sc.scrollWidth;
+      })
+      .catch(fail);
+  })();
+
+  (function () {
+    var USER = "Ribeiro-MD";
+    function set(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
+    fetch("https://api.github.com/users/" + USER)
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (u) {
+        if (u.bio) set("gh-bio", u.bio);
+      }).catch(function () {});
+  })();
+
+  /* PROJETOS: a lista está em projetos.js */
+  (function () {
+    var GITHUB = "https://github.com/Ribeiro-MD";
+
+    // a aba Destaques junta os projetos com "destaque: true", de todas as categorias
+    var destaques = [];
+    (function juntar(lista) {
+      lista.forEach(function (c) {
+        (c.itens || []).forEach(function (p) { if (p.destaque) destaques.push(p); });
+        if (c.subs) juntar(c.subs);
+      });
+    })(window.PROJETOS);
+    var CATEGORIAS = [{
+      id: "destaques", nome: "⭐ Destaques", desc: "Os projetos de que mais gosto, de todas as categorias.",
+      en: { nome: "⭐ Highlights", desc: "The projects I like the most, from every category." },
+      itens: destaques
+    }].concat(window.PROJETOS);
+
+    var tabs = document.getElementById("tabs");
+    var grid = document.getElementById("grid");
+    var tabDesc = document.getElementById("tab-desc");
+    var dlg = document.getElementById("dlg-projeto");
+    var subtabs = document.getElementById("subtabs");
+    var ativa = "destaques";
+    var subAtiva = {}; // sub-aba escolhida em cada categoria
+    var ultimoCard = null;
+
+    function el(tag, cls, text) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    }
+    function chips(lista) {
+      var box = el("div", "chips");
+      lista.forEach(function (t) { box.appendChild(el("span", "chip", t)); });
+      return box;
+    }
+
+    function contar(c) {
+      if (!c.subs) return c.itens.length;
+      return c.subs.reduce(function (n, s) { return n + s.itens.length; }, 0);
+    }
+    // sub-abas sem projetos não aparecem
+    function subsDe(c) {
+      return (c.subs || []).filter(function (s) { return s.itens.length; });
+    }
+    function subDe(c) {
+      var subs = subsDe(c);
+      return subs.filter(function (s) { return s.id === subAtiva[c.id]; })[0] || subs[0] || null;
+    }
+
+    function catAtiva() {
+      return CATEGORIAS.filter(function (c) { return c.id === ativa; })[0];
+    }
+
+    function criarTab(texto, id, selecionada, n, onClick) {
+      var b = el("button", "tab", texto);
+      b.type = "button";
+      b.id = id;
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", selecionada ? "true" : "false");
+      b.setAttribute("aria-controls", "grid");
+      b.appendChild(el("span", "count", String(n)));
+      b.addEventListener("click", onClick);
+      return b;
+    }
+
+    function desenharTabs() {
+      tabs.textContent = "";
+      CATEGORIAS.forEach(function (c) {
+        tabs.appendChild(criarTab(tx(c, "nome"), "tab-" + c.id, c.id === ativa, contar(c),
+          function () { ativa = c.id; desenhar(); }));
+      });
+
+      var cat = catAtiva();
+      subtabs.textContent = "";
+      var atual = subDe(cat);
+      subtabs.hidden = !atual;
+      subsDe(cat).forEach(function (s) {
+        subtabs.appendChild(criarTab(tx(s, "nome"), "subtab-" + s.id, s === atual, s.itens.length,
+          function () { subAtiva[cat.id] = s.id; desenhar(); }));
+      });
+    }
+
+    var ICONOS = {"Java": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><path fill=\"#0074BD\" d=\"M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092 0 0 2.871 1.795 6.873 3.351-24.439 10.47-55.308-.607-36.115-5.969zm-2.988-13.665s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6 0 0 1.993 2.025 5.132 3.131-29.542 8.64-62.446.68-41.309-6.336z\"/><path fill=\"#EA2D2E\" d=\"M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58 0 .001-42.731 10.67-22.324 34.187z\"/><path fill=\"#0074BD\" d=\"M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171-4.451-1.938 3.899-4.625 6.526-5.192 2.739-.593 4.303-.485 4.303-.485-4.953-3.487-32.013 6.85-13.743 9.815 49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326 9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958 10.832-5.239 19.644-4.643 19.644-4.643zm40.697 22.747c23.421-12.167 12.591-23.86 5.032-22.285-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725 0-.002.359-.327.468-.617z\"/><path fill=\"#EA2D2E\" d=\"M76.491 1.587S89.459 14.563 64.188 34.51c-20.266 16.006-4.621 25.13-.007 35.559-11.831-10.673-20.509-20.07-14.688-28.815C58.041 28.42 81.722 22.195 76.491 1.587z\"/><path fill=\"#0074BD\" d=\"M52.214 126.021c22.476 1.437 57-.8 57.817-11.436 0 0-1.571 4.032-18.577 7.231-19.186 3.612-42.854 3.191-56.887.874 0 .001 2.875 2.381 17.647 3.331z\"/></svg>", "JavaScript": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><path fill=\"#F0DB4F\" d=\"M1.408 1.408h125.184v125.185H1.408z\"/><path fill=\"#323330\" d=\"M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z\"/></svg>", "Kotlin": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><defs> <linearGradient id=\"kotlin-a\" x1=\"500.003\" x2=\"-.097\" y1=\"579.106\" y2=\"1079.206\" gradientTransform=\"translate(15.534 -96.774) scale(.1939)\" gradientUnits=\"userSpaceOnUse\"> <stop offset=\".003\" stop-color=\"#e44857\"/> <stop offset=\".469\" stop-color=\"#c711e1\"/> <stop offset=\"1\" stop-color=\"#7f52ff\"/> </linearGradient> </defs> <path fill=\"url(#kotlin-a)\" d=\"M112.484 112.484H15.516V15.516h96.968L64 64Zm0 0\"/></svg>", "Android": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><path fill=\"#fff\" d=\"M21.012 91.125c-5.538.003-10.038-4.503-10.039-10.04l-.002-30.739c-.002-5.532 4.497-10.037 10.028-10.038 2.689-.002 5.207 1.041 7.105 2.937s2.942 4.418 2.944 7.099l-.003 30.74a9.924 9.924 0 01-2.931 7.094 9.962 9.962 0 01-7.102 2.947m-.008-48.12c-4.053-.002-7.338 3.291-7.339 7.341l.005 30.736a7.347 7.347 0 007.341 7.348 7.338 7.338 0 007.339-7.347V50.342a7.345 7.345 0 00-7.346-7.337\"/><path fill=\"#fff\" d=\"M99.742 44.527l-2.698-.001-66.119.009-2.699.001-.002-2.699c-.006-11.08 6.03-21.385 15.917-27.473l-3.844-7.017c-.47-.822-.588-1.863-.314-2.815a3.732 3.732 0 011.814-2.239 3.605 3.605 0 011.759-.447c1.362 0 2.609.739 3.267 1.933l4.023 7.329a37.842 37.842 0 0113.099-2.305c4.606-.002 9.023.777 13.204 2.311l4.017-7.341a3.711 3.711 0 013.263-1.932 3.712 3.712 0 011.761.438A3.706 3.706 0 0188 4.524a3.69 3.69 0 01-.318 2.832l-3.842 7.013c9.871 6.101 15.9 16.398 15.899 27.459l.003 2.699zM80.196 15.403l5.123-9.355a1.019 1.019 0 10-1.783-.981l-5.176 9.45c-4.354-1.934-9.229-3.021-14.382-3.016-5.142-.005-10.008 1.078-14.349 3.005l-5.181-9.429a1.009 1.009 0 00-1.379-.405c-.497.266-.68.891-.403 1.379l5.125 9.348c-10.07 5.194-16.874 15.084-16.868 26.439l66.118-.008c.003-11.351-6.789-21.221-16.845-26.427M48.94 29.86a2.772 2.772 0 01.003-5.545 2.78 2.78 0 012.775 2.774 2.775 2.775 0 01-2.778 2.771m30.107-.006a2.767 2.767 0 01-2.772-2.771 2.788 2.788 0 012.773-2.778 2.79 2.79 0 012.767 2.779 2.769 2.769 0 01-2.768 2.77m-27.336 96.305c-5.533-.001-10.036-4.501-10.037-10.038l-.002-13.567-2.638.003a10.453 10.453 0 01-7.448-3.082 10.437 10.437 0 01-3.083-7.452l-.01-47.627v-2.701h2.699l65.623-.01 2.7-.002v2.699l.007 47.633c.001 5.809-4.725 10.536-10.532 10.535l-2.654.002.003 13.562c0 5.534-4.502 10.039-10.033 10.039a9.933 9.933 0 01-7.098-2.937 9.952 9.952 0 01-2.947-7.096v-13.568H61.75v13.565c-.002 5.535-4.503 10.043-10.039 10.042\"/><path fill=\"#fff\" d=\"M31.205 92.022a7.82 7.82 0 007.831 7.837h5.333l.006 16.264c-.001 4.05 3.289 7.341 7.335 7.342a7.342 7.342 0 007.338-7.348l.001-16.259 9.909-.003-.001 16.263c.004 4.051 3.298 7.346 7.343 7.338 4.056.003 7.344-3.292 7.343-7.344l-.005-16.259 5.353-.001c4.319.001 7.832-3.508 7.832-7.837l-.009-47.635-65.621.012.012 47.63zm75.791-.91c-5.536.001-10.039-4.498-10.038-10.036l-.008-30.738c.002-5.537 4.498-10.041 10.031-10.041 5.54-.001 10.046 4.502 10.045 10.038l.003 30.736c.001 5.534-4.498 10.042-10.033 10.041m-.01-48.116c-4.053-.004-7.337 3.287-7.337 7.342l.003 30.737a7.336 7.336 0 007.342 7.34 7.338 7.338 0 007.338-7.343l-.008-30.736a7.335 7.335 0 00-7.338-7.34\"/><path fill=\"#A4C439\" d=\"M21.004 43.005c-4.053-.002-7.338 3.291-7.339 7.341l.005 30.736a7.338 7.338 0 007.342 7.343 7.33 7.33 0 007.338-7.342V50.342a7.345 7.345 0 00-7.346-7.337m59.192-27.602l5.123-9.355a1.023 1.023 0 00-.401-1.388 1.022 1.022 0 00-1.382.407l-5.175 9.453c-4.354-1.938-9.227-3.024-14.383-3.019-5.142-.005-10.013 1.078-14.349 3.005l-5.181-9.429a1.01 1.01 0 00-1.378-.406 1.007 1.007 0 00-.404 1.38l5.125 9.349c-10.07 5.193-16.874 15.083-16.868 26.438l66.118-.008c.003-11.351-6.789-21.221-16.845-26.427M48.94 29.86a2.772 2.772 0 01.003-5.545 2.78 2.78 0 012.775 2.774 2.775 2.775 0 01-2.778 2.771m30.107-.006a2.77 2.77 0 01-2.772-2.771 2.793 2.793 0 012.773-2.778 2.79 2.79 0 012.767 2.779 2.767 2.767 0 01-2.768 2.77M31.193 44.392l.011 47.635a7.822 7.822 0 007.832 7.831l5.333.002.006 16.264c-.001 4.05 3.291 7.342 7.335 7.342 4.056 0 7.342-3.295 7.343-7.347l-.004-16.26 9.909-.003.004 16.263c0 4.047 3.293 7.346 7.338 7.338 4.056.003 7.344-3.292 7.343-7.344l-.005-16.259 5.352-.004a7.835 7.835 0 007.836-7.834l-.009-47.635-65.624.011zm83.134 5.943a7.338 7.338 0 00-7.341-7.339c-4.053-.004-7.337 3.287-7.337 7.342l.006 30.738a7.334 7.334 0 007.339 7.339 7.337 7.337 0 007.338-7.343l-.005-30.737z\"/></svg>", "Jetpack Compose": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><path d=\"M41.226 76.778a4.002 4.002 0 0 1-.47-1.29c.09.452.25.887.47 1.29zm.578.713c.222.22.472.411.749.548l18.88 10.565-18.88-10.565a2.899 2.899 0 0 1-.747-.548z\" fill=\"#083042\"/><path d=\"M64.342 101.967h-.14a8.301 8.301 0 0 1-4.014-1.016l-28.182-15.75c-1.663-.932-2.686-2.66-2.686-4.527V48.628c0-1.373.249-2.69.83-3.842L8.114 32.522c-.913 1.92-1.383 4.088-1.356 6.366v52.927a8.675 8.675 0 0 0 4.458 7.49l46.481 26.012c2.05 1.152 4.347 1.701 6.617 1.701v-.027c.055-3.32.028-16.628.028-25.023z\" fill=\"#083042\"/><path d=\"m86.46 50.6-.167-.246c-.138-.192-.275-.357-.413-.548.138.164.275.356.413.547a.973.973 0 0 1 .167.247zM63.262 37.76c.14 0 .251-.027.39-.027-.139.027-.278.027-.39.027z\" fill=\"#3ddb85\"/><path d=\"M30.122 44.757a7.214 7.214 0 0 1 2.825-3.072l26.52-15.503a8.065 8.065 0 0 1 8.03-.082l26.798 15.009a8.993 8.993 0 0 1 3.018 2.743L118.99 31.04a14.913 14.913 0 0 0-4.955-4.5L69.766 1.764a13.32 13.32 0 0 0-13.233.137L12.765 27.472a11.704 11.704 0 0 0-4.651 5.049l22.009 12.236z\" fill=\"#3ddc84\"/><path d=\"M62.157 37.983c.057-.028.114-.028.17-.056-.056.028-.113.028-.17.056zm-20.88 12.949c.056-.11.111-.22.168-.3-.057.109-.111.19-.168.3l-.082.246z\" fill=\"#3ddb85\"/><path d=\"M118.962 31.04 97.285 43.852c.83 1.207 1.329 2.633 1.355 4.089v30.51a7.881 7.881 0 0 1-3.93 6.914L68.188 100.87a8.07 8.07 0 0 1-3.849 1.097c.029 8.369.029 21.677-.027 24.997v.027a13.533 13.533 0 0 0 6.617-1.812l43.769-25.599c4.07-2.387 6.562-6.723 6.506-11.415V37.817c-.028-2.442-.858-4.774-2.242-6.777z\" fill=\"#4285f4\"/><path d=\"M86.963 75.187c-.028.056-.028.111-.056.168a.387.387 0 0 0 .056-.168zm-.278-24.227c-.057-.138-.14-.248-.223-.385.083.137.166.275.222.385zM66.807 88.576 84.58 78.178c.111-.054.195-.138.306-.192-.111.054-.195.138-.306.192l-17.773 10.4zM86.74 75.818c-.056.138-.139.275-.196.413.057-.165.112-.303.196-.413z\" fill=\"#4285f4\"/><path d=\"M41.198 51.178a5.508 5.508 0 0 0-.415 1.675c-.028.218-.028.438-.028.686v21.483c0 .164 0 .302.028.467.056.465.222.905.47 1.29.167.274.36.492.555.712.222.22.47.411.746.55l18.882 10.563a5.49 5.49 0 0 0 2.684.685h.195a5.155 5.155 0 0 0 2.492-.74L84.58 78.15c.111-.055.194-.138.305-.192.194-.137.388-.275.554-.44.26-.236.501-.492.719-.768.138-.192.277-.383.388-.576.082-.136.139-.274.193-.412.056-.135.14-.301.195-.465.027-.056.027-.111.055-.165a5.403 5.403 0 0 0 .249-1.647V53.044c0-.383-.056-.74-.138-1.096-.055-.248-.14-.468-.222-.688l-.166-.328c-.055-.138-.14-.247-.222-.385l-.166-.246c-.138-.193-.277-.357-.415-.549a5.607 5.607 0 0 0-1.606-1.29L66.337 38.394a6.145 6.145 0 0 0-.97-.44 5.86 5.86 0 0 0-1.385-.246h-.36c-.137 0-.248 0-.386.026a5.658 5.658 0 0 0-.942.165c-.055.027-.11.027-.166.056-.415.11-.803.301-1.191.52l-17.773 10.4a4.548 4.548 0 0 0-1.33 1.18c-.137.192-.276.384-.387.576-.055.11-.11.192-.166.302l-.083.246Z\" fill=\"#d6f0ff\"/><path d=\"M64.312 89.288h-.194a5.512 5.512 0 0 1-2.686-.684L42.552 78.04a3.737 3.737 0 0 1-.748-.549 3.31 3.31 0 0 1-.554-.714 3.998 3.998 0 0 1-.47-1.29c-.029-.163-.029-.301-.029-.465V53.537c0-.219 0-.465.029-.686.053-.575.192-1.14.415-1.674L36.1 48.078l-5.98-3.32c-.554 1.152-.83 2.468-.83 3.841v32.047a5.322 5.322 0 0 0 2.685 4.528l28.157 15.776a8.023 8.023 0 0 0 4.014 1.016h.14c0-4.089-.029-6.997-.029-6.997l.055-5.68z\" fill=\"#083042\"/><path d=\"M64.312 89.288h-.194a5.512 5.512 0 0 1-2.686-.684L42.552 78.04a3.737 3.737 0 0 1-.748-.549 3.31 3.31 0 0 1-.554-.714 3.998 3.998 0 0 1-.47-1.29c-.029-.163-.029-.301-.029-.465V53.537c0-.219 0-.465.029-.686.053-.575.192-1.14.415-1.674L36.1 48.078l-5.98-3.32c-.554 1.152-.83 2.468-.83 3.841v32.047a5.322 5.322 0 0 0 2.685 4.528l28.157 15.776a8.023 8.023 0 0 0 4.014 1.016h.14c0-4.089-.029-6.997-.029-6.997l.055-5.68z\" fill=\"#041619\"/><path d=\"m94.266 41.109-26.799-15.01a8.066 8.066 0 0 0-8.029.083l-26.52 15.504a7.049 7.049 0 0 0-2.826 3.073l6.01 3.32 5.093 3.099.082-.246c.056-.111.111-.22.166-.302.111-.192.25-.384.388-.576.36-.467.803-.85 1.33-1.18l17.772-10.4c.38-.213.777-.387 1.191-.52.056-.027.111-.027.166-.056.308-.084.623-.138.941-.164.138 0 .249-.028.388-.028h.36c.469.03.933.111 1.384.246.34.108.665.255.969.441l17.966 10.07a5.99 5.99 0 0 1 1.608 1.289c.137.164.277.357.414.548l.167.246 4.595-3.044 6.229-3.704c-.803-1.071-1.827-2.032-3.045-2.69z\" fill=\"#3ddb85\"/><path d=\"m94.266 41.109-26.799-15.01a8.066 8.066 0 0 0-8.029.083l-26.52 15.504a7.049 7.049 0 0 0-2.826 3.073l6.01 3.32 5.093 3.099.082-.246c.056-.111.111-.22.166-.302.111-.192.25-.384.388-.576.36-.467.803-.85 1.33-1.18l17.772-10.4c.38-.213.777-.387 1.191-.52.056-.027.111-.027.166-.056.308-.084.623-.138.941-.164.138 0 .249-.028.388-.028h.36c.469.03.933.111 1.384.246.34.108.665.255.969.441l17.966 10.07a5.99 5.99 0 0 1 1.608 1.289c.137.164.277.357.414.548l.167.246 4.595-3.044 6.229-3.704c-.803-1.071-1.827-2.032-3.045-2.69z\" fill=\"#37bf6e\"/><path d=\"M86.46 50.602c.083.136.139.246.221.384l.167.329a4.783 4.783 0 0 1 .36 1.783V73.54a5.414 5.414 0 0 1-.25 1.646c-.027.054-.027.11-.055.164a3.423 3.423 0 0 1-.193.468c-.057.135-.14.273-.195.41-.11.193-.249.384-.388.577a6.243 6.243 0 0 1-.719.767c-.166.165-.36.302-.554.44-.111.054-.193.137-.304.192L66.776 88.602a5.841 5.841 0 0 1-2.492.742v5.679s0 2.909.028 6.997a7.785 7.785 0 0 0 3.849-1.097l26.52-15.504c2.465-1.453 3.96-4.088 3.932-6.913V47.995c-.027-1.482-.525-2.882-1.355-4.089l-6.231 3.705z\" fill=\"#4285f4\"/><path d=\"M86.46 50.602c.083.136.139.246.221.384l.167.329a4.783 4.783 0 0 1 .36 1.783V73.54a5.414 5.414 0 0 1-.25 1.646c-.027.054-.027.11-.055.164a3.423 3.423 0 0 1-.193.468c-.057.135-.14.273-.195.41-.11.193-.249.384-.388.577a6.243 6.243 0 0 1-.719.767c-.166.165-.36.302-.554.44-.111.054-.193.137-.304.192L66.776 88.602a5.841 5.841 0 0 1-2.492.742v5.679s0 2.909.028 6.997a7.785 7.785 0 0 0 3.849-1.097l26.52-15.504c2.465-1.453 3.96-4.088 3.932-6.913V47.995c-.027-1.482-.525-2.882-1.355-4.089l-6.231 3.705z\" fill=\"#3870b2\"/><path d=\"M62.155 37.982c-.416.11-.804.302-1.19.52l-17.774 10.4 17.772-10.398a4.54 4.54 0 0 1 1.19-.52z\" fill=\"#d6f0ff\"/><path opacity=\".1\" d=\"M62.155 37.982c-.416.11-.804.302-1.19.52l-17.774 10.4 17.772-10.398a4.54 4.54 0 0 1 1.19-.52z\" fill=\"#000\"/><path d=\"M85.88 49.806a5.615 5.615 0 0 0-1.605-1.29l-17.968-10.07 17.967 10.07a5.6 5.6 0 0 1 1.606 1.29z\" fill=\"#d6f0ff\"/><path opacity=\".1\" d=\"M85.88 49.806a5.615 5.615 0 0 0-1.605-1.29l-17.968-10.07 17.967 10.07a5.6 5.6 0 0 1 1.606 1.29z\" fill=\"#000\"/><path d=\"M86.848 51.289a6.7 6.7 0 0 1 .22.684c-.055-.219-.14-.438-.222-.684z\" fill=\"#d6f0ff\"/><path opacity=\".1\" d=\"M86.848 51.289a6.7 6.7 0 0 1 .22.684c-.055-.219-.14-.438-.222-.684z\" fill=\"#000\"/><path d=\"M86.956 75.186a5.34 5.34 0 0 0 .249-1.646V53.098 73.54a5.34 5.34 0 0 1-.25 1.646z\" fill=\"#d6f0ff\"/><path opacity=\".1\" d=\"M86.956 75.186a5.34 5.34 0 0 0 .249-1.646V53.098 73.54a5.34 5.34 0 0 1-.25 1.646z\" fill=\"#000\"/></svg>", "C#": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><path fill=\"#9B4F96\" d=\"M115.4 30.7L67.1 2.9c-.8-.5-1.9-.7-3.1-.7-1.2 0-2.3.3-3.1.7l-48 27.9c-1.7 1-2.9 3.5-2.9 5.4v55.7c0 1.1.2 2.4 1 3.5l106.8-62c-.6-1.2-1.5-2.1-2.4-2.7z\"/><path fill=\"#68217A\" d=\"M10.7 95.3c.5.8 1.2 1.5 1.9 1.9l48.2 27.9c.8.5 1.9.7 3.1.7 1.2 0 2.3-.3 3.1-.7l48-27.9c1.7-1 2.9-3.5 2.9-5.4V36.1c0-.9-.1-1.9-.6-2.8l-106.6 62z\"/><path fill=\"#fff\" d=\"M85.3 76.1C81.1 83.5 73.1 88.5 64 88.5c-13.5 0-24.5-11-24.5-24.5s11-24.5 24.5-24.5c9.1 0 17.1 5 21.3 12.5l13-7.5c-6.8-11.9-19.6-20-34.3-20-21.8 0-39.5 17.7-39.5 39.5s17.7 39.5 39.5 39.5c14.6 0 27.4-8 34.2-19.8l-12.9-7.6zM97 66.2l.9-4.3h-4.2v-4.7h5.1L100 51h4.9l-1.2 6.1h3.8l1.2-6.1h4.8l-1.2 6.1h2.4v4.7h-3.3l-.9 4.3h4.2v4.7h-5.1l-1.2 6h-4.9l1.2-6h-3.8l-1.2 6h-4.8l1.2-6h-2.4v-4.7H97zm4.8 0h3.8l.9-4.3h-3.8l-.9 4.3z\"/></svg>", "WinForms": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><g fill=\"#623697\"><path d=\"M61.195 0h4.953c12.918.535 25.688 4.89 36.043 12.676 9.809 7.289 17.473 17.437 21.727 28.906 2.441 6.387 3.664 13.18 4.082 19.992v4.211c-.414 11.293-3.664 22.52-9.73 32.082-6.801 10.895-16.922 19.73-28.727 24.828A64.399 64.399 0 0165.082 128h-2.144c-11.735-.191-23.41-3.66-33.297-9.992-11.196-7.113-20.114-17.785-25.028-30.117C1.891 81.19.441 74.02 0 66.812v-4.957c.504-14.39 5.953-28.609 15.41-39.496C23.168 13.31 33.5 6.48 44.887 2.937 50.172 1.27 55.676.41 61.195 0M25.191 37.523c-.03 12.153-.011 24.305-.011 36.454 1.43.011 2.86.011 4.293.011-.075-10.433.101-20.863-.106-31.293.48.907.918 1.84 1.465 2.707C37.035 54.91 43.105 64.5 49.309 74c1.738-.023 3.476-.023 5.214.004-.003-12.16-.007-24.32.004-36.48a308.076 308.076 0 00-4.25-.012c.075 10.32-.136 20.64.125 30.949-6.507-10.352-13.101-20.645-19.695-30.945a370.85 370.85 0 00-5.516.007m38.844-.011c-.129 12.16-.004 24.32-.047 36.476 6.469-.015 12.938.024 19.41-.02a83.36 83.36 0 01.024-3.952c-5.012-.016-10.027.007-15.043-.02-.074-4.21-.004-8.426-.04-12.637 4.395-.078 8.79.012 13.18-.047-.011-1.277-.011-2.554-.019-3.832-4.387.141-8.773-.054-13.164.012.012-4.023.02-8.05.02-12.078 4.699 0 9.398-.02 14.093.012-.008-1.301 0-2.606.016-3.906-6.145-.016-12.29-.008-18.43-.008m22.602.054c.004 1.266.004 2.528.008 3.79 3.488-.04 6.972.109 10.46.035-.023 10.863.004 21.718-.011 32.574 1.46.043 2.93.035 4.39-.09-.12-5.992.118-11.988-.156-17.977.067-2.699-.07-5.394.117-8.09.106-2.14-.277-4.277-.035-6.417 3.516.047 7.035.015 10.55.015a59.774 59.774 0 01.075-3.832c-8.469-.105-16.937-.094-25.398-.008M13.55 69.094c-1.977.91-2.106 4.023-.149 5.027 1.72 1.18 4.305-.371 4.227-2.41.133-2.004-2.29-3.688-4.078-2.617m29.23 15.289c-4.277 3.469-4.226 11.195.5 14.25 2.668 1.695 6.102 1.344 8.922.215.012-.621.027-1.239.05-1.86-2.671 1.395-6.41 1.68-8.675-.61-2.965-3.237-2.297-9.269 1.613-11.476 2.211-1.164 4.907-.824 7.086.239-.007-.66-.004-1.32 0-1.98-3.097-1.099-6.922-1.04-9.496 1.222m17.207 2.71c-1.89.22-3.758 1.22-4.633 2.966-1.253 2.496-1.109 5.867.864 7.96 2.035 2.297 5.945 2.32 8.18.297 2.425-2.308 2.699-6.468.757-9.164-1.148-1.629-3.273-2.183-5.168-2.058m17.887 2.722c-1.66 2.883-1.332 7.25 1.598 9.211 2.183 1.22 4.933.832 7.074-.308-.004-.617.004-1.235.031-1.848-1.687 1.07-3.937 1.856-5.812.777-1.309-.722-1.704-2.257-1.914-3.625 2.875-.039 5.746-.082 8.625-.074-.075-1.828-.118-3.894-1.45-5.308-2.199-2.43-6.644-1.657-8.152 1.175m-8.414-2.336v12.008c.652 0 1.312 0 1.973.004.023-2.195-.04-4.394.023-6.594.016-1.27.527-2.558 1.484-3.414.801-.605 1.883-.27 2.801-.246-.012-.636-.02-1.27-.023-1.902-1.793-.398-3.336.652-4.242 2.117-.02-.633-.04-1.266-.051-1.894-.656-.024-1.313-.051-1.965-.079zm0 0\"/><path d=\"M58.758 89.223c1.652-.805 4.023-.41 4.945 1.3 1.05 1.887 1.027 4.383-.137 6.211-1.52 2.286-5.527 1.786-6.523-.742-1.008-2.258-.617-5.484 1.715-6.77zm0 0M79.04 92.414c.046-1.574 1.144-3.137 2.726-3.48.976-.164 2.097.007 2.773.793.672.714.813 1.714.98 2.64-2.16.012-4.32-.031-6.48.047zm0 0\"/></g></svg>", "Bukkit": "<svg viewBox=\"0 0 24 24\" fill=\"#ED8106\" aria-hidden=\"true\"><path d=\"M12.644 2.44c-.179.033-.456.182-.603.331-.245.2-.588.232-2.023.133l-1.713-.116.049.713.049.713h.652c.36-.016 1.207-.05 1.876-.083l1.224-.083v3.317l-.44.05c-.425.05-.457.1-.457.862 0 .713-.05.813-.36.863-.26.033-.39.182-.44.464-.016.232-.114.448-.18.497-.08.05-.228.597-.326 1.211-.228 1.526-.375 1.708-1.37 1.84-1.436.167-2.056.134-2.056-.148 0-.2-.244-.25-1.158-.25-1.012 0-1.158-.032-1.24-.33-.065-.25-.228-.333-.62-.333s-.555.083-.62.332c-.082.299-.228.332-1.224.332-1.011 0-1.158.033-1.256.332-.049.182-.18.331-.26.331-.082 0-.148.863-.148 1.99 0 1.609.05 1.99.229 1.99.13 0 .293.15.342.332.082.282.245.332 1.175.332.914 0 1.077.05 1.142.331.13.465 1.11.465 1.24 0 .065-.282.228-.331 1.158-.331.849 0 1.077-.05 1.077-.25 0-.397 2.121-.33 3.426.117 1.583.53 5.14.53 6.82 0 .653-.199 1.256-.332 1.338-.282.359.232.163.896-.343 1.178-.587.298-.587.563 0 1.956l.343.797 1.599-.067c1.73-.083 2.822-.48 3.915-1.41l.539-.464-.31-.912c-.327-.962-.734-1.327-1.518-1.327-.342 0-.473-.149-.766-.796-.506-1.144-1.224-1.758-2.758-2.355-.799-.315-1.582-.746-1.99-1.127-.604-.548-.685-.73-.832-1.775-.098-.63-.245-1.194-.326-1.244-.066-.05-.164-.265-.18-.497-.049-.282-.18-.431-.424-.464-.326-.05-.375-.15-.375-.863 0-.763-.033-.812-.44-.862-.458-.05-.458-.05-.507-1.526-.032-.929.017-1.542.13-1.658.115-.116.93-.183 2.09-.183h1.908l.05-.564c.032-.298-.017-.63-.099-.713-.098-.1-.816-.083-1.909.05-1.256.15-1.778.15-1.86.017-.146-.25-.848-.481-1.24-.398z\"/></svg>", "WebExtensions": "<svg viewBox=\"0 0 24 24\" fill=\"#FF7139\" aria-hidden=\"true\"><path d=\"M20.452 3.445a11.002 11.002 0 00-2.482-1.908C16.944.997 15.098.093 12.477.032c-.734-.017-1.457.03-2.174.144-.72.114-1.398.292-2.118.56-1.017.377-1.996.975-2.574 1.554.583-.349 1.476-.733 2.55-.992a10.083 10.083 0 013.729-.167c2.341.34 4.178 1.381 5.48 2.625a8.066 8.066 0 011.298 1.587c1.468 2.382 1.33 5.376.184 7.142-.85 1.312-2.67 2.544-4.37 2.53-.583-.023-1.438-.152-2.25-.566-2.629-1.343-3.021-4.688-1.118-6.306-.632-.136-1.82.13-2.646 1.363-.742 1.107-.7 2.816-.242 4.028a6.473 6.473 0 01-.59-1.895 7.695 7.695 0 01.416-3.845A8.212 8.212 0 019.45 5.399c.896-1.069 1.908-1.72 2.75-2.005-.54-.471-1.411-.738-2.421-.767C8.31 2.583 6.327 3.061 4.7 4.41a8.148 8.148 0 00-1.976 2.414c-.455.836-.691 1.659-.697 1.678.122-1.445.704-2.994 1.248-4.055-.79.413-1.827 1.668-2.41 3.042C.095 9.37-.2 11.608.14 13.989c.966 5.668 5.9 9.982 11.843 9.982C18.62 23.971 24 18.591 24 11.956a11.93 11.93 0 00-3.548-8.511z\"/></svg>", "Fabric": "<svg viewBox=\"-2 0 56 56\" aria-hidden=\"true\"><image width=\"52\" height=\"56\" style=\"image-rendering:pixelated\" href=\"img/fabric.png\"/></svg>", "Quilt": "<svg viewBox=\"0 0 913.53 913.53\" aria-hidden=\"true\"><path fill=\"#9722ff\" d=\"M249.16,128.54a15.28,15.28,0,0,0,15.26,15.27h26v58h-26a15.27,15.27,0,0,0,0,30.53h26v44.5a13.52,13.52,0,0,1-13.52,13.53h-44.5v-26a15.27,15.27,0,0,0-30.54,0v26h-58v-26a15.27,15.27,0,1,0-30.53,0v26H68.77a13.54,13.54,0,0,1-13.53-13.53V68.78A13.53,13.53,0,0,1,68.77,55.25H276.86a13.52,13.52,0,0,1,13.52,13.53v44.48h-26A15.27,15.27,0,0,0,249.16,128.54Z\"/><path fill=\"#dc29dd\" d=\"M514.84,128.54a15.27,15.27,0,0,0,15.26,15.27h26v58h-26a15.27,15.27,0,0,0,0,30.53h26v44.5a13.53,13.53,0,0,1-13.52,13.53H334.45a13.52,13.52,0,0,1-13.52-13.53v-44.5h25.94a15.27,15.27,0,1,0,0-30.53H320.93v-58h25.94a15.28,15.28,0,1,0,0-30.55H320.93V68.78a13.51,13.51,0,0,1,13.52-13.53H542.54a13.52,13.52,0,0,1,13.52,13.53v44.48h-26A15.27,15.27,0,0,0,514.84,128.54Z\"/><path fill=\"#27a2fd\" d=\"M821.73,68.78V276.86a13.52,13.52,0,0,1-13.52,13.53h-44.5v-26a15.27,15.27,0,1,0-30.53,0v26h-58v-26a15.27,15.27,0,1,0-30.53,0v26h-44.5a13.54,13.54,0,0,1-13.53-13.53v-44.5h26a15.27,15.27,0,1,0,0-30.53h-26v-58h26a15.28,15.28,0,0,0,0-30.55h-26V68.78a13.53,13.53,0,0,1,13.53-13.53H808.21A13.52,13.52,0,0,1,821.73,68.78Z\"/><path fill=\"#dc29dd\" d=\"M290.38,334.44V542.53a13.52,13.52,0,0,1-13.52,13.53h-44.5v-26a15.27,15.27,0,0,0-30.54,0v26h-58v-26a15.27,15.27,0,1,0-30.53,0v26H68.77a13.53,13.53,0,0,1-13.53-13.53V334.44a13.54,13.54,0,0,1,13.53-13.52h44.5v26a15.27,15.27,0,0,0,30.53,0v-26h58v26a15.27,15.27,0,0,0,30.54,0v-26h44.5A13.52,13.52,0,0,1,290.38,334.44Z\"/><path fill=\"#27a2fd\" d=\"M514.84,394.21a15.25,15.25,0,0,0,15.26,15.26h26v58h-26a15.27,15.27,0,0,0,0,30.53h26v44.5a13.52,13.52,0,0,1-13.52,13.53H498v-26a15.27,15.27,0,1,0-30.53,0v26h-58v-26a15.27,15.27,0,1,0-30.54,0v26H334.45a13.51,13.51,0,0,1-13.52-13.53V334.44a13.52,13.52,0,0,1,13.52-13.52H542.54a13.53,13.53,0,0,1,13.52,13.52v44.5h-26A15.26,15.26,0,0,0,514.84,394.21Z\"/><path fill=\"#34f\" d=\"M821.73,334.44V542.53a13.52,13.52,0,0,1-13.52,13.53H600.12a13.53,13.53,0,0,1-13.53-13.53V498h26a15.27,15.27,0,1,0,0-30.53h-26v-58h26a15.27,15.27,0,1,0,0-30.53h-26v-44.5a13.54,13.54,0,0,1,13.53-13.52h44.5v26a15.27,15.27,0,0,0,30.53,0v-26h58v26a15.27,15.27,0,0,0,30.53,0v-26h44.5A13.52,13.52,0,0,1,821.73,334.44Z\"/><path fill=\"#9722ff\" d=\"M249.16,659.89a15.28,15.28,0,0,0,15.26,15.27h26v58h-26a15.27,15.27,0,0,0,0,30.54h26v44.5a13.52,13.52,0,0,1-13.52,13.53H68.77a13.54,13.54,0,0,1-13.53-13.53V600.13A13.53,13.53,0,0,1,68.77,586.6h44.5v25.95a15.27,15.27,0,1,0,30.53,0V586.6h58v25.95a15.27,15.27,0,1,0,30.54,0V586.6h44.5a13.52,13.52,0,0,1,13.52,13.53v44.48h-26A15.28,15.28,0,0,0,249.16,659.89Z\"/><path fill=\"#34f\" d=\"M556.06,600.13V808.21a13.53,13.53,0,0,1-13.52,13.53H334.45a13.52,13.52,0,0,1-13.52-13.53v-44.5h25.94a15.27,15.27,0,1,0,0-30.54H320.93v-58h25.94a15.28,15.28,0,1,0,0-30.55H320.93V600.13a13.51,13.51,0,0,1,13.52-13.53h44.49v25.95a15.27,15.27,0,1,0,30.54,0V586.6h58v25.95a15.27,15.27,0,1,0,30.53,0V586.6h44.5A13.52,13.52,0,0,1,556.06,600.13Z\"/></svg>", "NeoForge": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><image width=\"128\" height=\"128\" style=\"image-rendering:pixelated\" href=\"img/neoforge.png\"/></svg>", "Forge": "<svg viewBox=\"8 -12 96 96\" aria-hidden=\"true\"><path fill=\"#FAF4F3\" d=\"M91.6,16.7l-37.8-1.9l46.2,0v-3.7H47.8l0,7.8v6.2c0,0.1-1.5-9.1-1.9-11.7h-4.1v6.8v6.2 c0,0.1-1.8-10.9-1.9-12.3c-10.4,0-27.9,0-27.9,0c1.9,1.6,12.4,10.6,19.9,14.3c3.7,1.8,8.3,1.9,12.4,2c2.1,0.1,4.2,0.2,5.8,1.8 c2.3,2.2,2.8,5.7,0.8,8.3c-1.9,2.6-7.3,3.2-7.3,3.2L39,49.1v6.4h10.3l0.3-6.3l8.9-6.3c-0.9,0.8-3.1,2.8-6.2,7.7 c-0.7,1.1-1.3,2.3-1.7,3.5c2.2-1.9,6.8-3.2,12.2-3.2c5.3,0,9.9,1.3,12.1,3.2c-0.4-1.2-1-2.4-1.7-3.5c-3.2-4.9-5.3-6.9-6.2-7.7 l8.9,6.3l0.3,6.3h9.6v-6.4l-4.5-5.5c0,0-6.7-0.4-8.4-3.2C67.7,32.6,74.8,20.4,91.6,16.7z\"/></svg>", "Paper": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" fill=\"#E7E7E7\"/><text x=\"12\" y=\"16.5\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" font-family=\"Arial,sans-serif\" fill=\"#1a0016\">P</text></svg>", "Regex": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" fill=\"#7f3260\"/><text x=\"12\" y=\"16.5\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" font-family=\"Arial,sans-serif\" fill=\"#fff\">.*</text></svg>", "HTML": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><path fill=\"#E44D26\" d=\"M19.037 113.876L9.032 1.661h109.936l-10.016 112.198-45.019 12.48z\"/><path fill=\"#F16529\" d=\"M64 116.8l36.378-10.086 8.559-95.878H64z\"/><path fill=\"#EBEBEB\" d=\"M64 52.455H45.788L44.53 38.361H64V24.599H29.489l.33 3.692 3.382 37.927H64zm0 35.743l-.061.017-15.327-4.14-.979-10.975H33.816l1.928 21.609 28.193 7.826.063-.017z\"/><path fill=\"#fff\" d=\"M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.143v14.319l28.215-7.82.207-2.325 3.234-36.233.335-3.696h-3.708zm0-27.856v13.762h33.244l.276-3.092.628-6.978.329-3.692z\"/></svg>", "CSS": "<svg viewBox=\"0 0 128 128\" aria-hidden=\"true\"><path fill=\"#1572B6\" d=\"M18.814 114.123L8.76 1.352h110.48l-10.064 112.754-45.243 12.543-45.119-12.526z\"/><path fill=\"#33A9DC\" d=\"M64.001 117.062l36.559-10.136 8.601-96.354h-45.16v106.49z\"/><path fill=\"#fff\" d=\"M64.001 51.429h18.302l1.264-14.163H64.001V23.435h34.682l-.332 3.711-3.4 38.114h-30.95V51.429z\"/><path fill=\"#EBEBEB\" d=\"M64.083 87.349l-.061.018-15.403-4.159-.985-11.031H33.752l1.937 21.717 28.331 7.863.063-.018v-14.39z\"/><path fill=\"#fff\" d=\"M81.127 64.675l-1.666 18.522-15.426 4.164v14.39l28.354-7.858.208-2.337 2.406-26.881H81.127z\"/><path fill=\"#EBEBEB\" d=\"M64.048 23.435v13.831H30.64l-.277-3.108-.63-7.012-.331-3.711h34.646zm-.047 27.996v13.831H48.792l-.277-3.108-.631-7.012-.33-3.711h16.447z\"/></svg>"};
+
+       var EMAIL = "devribeiromd@gmail.com";
+    // idioma: devolve o campo em inglês quando existe
+    function emIngles() { return document.documentElement.lang === "en"; }
+    function tx(o, k) { return emIngles() && o.en && o.en[k] != null ? o.en[k] : o[k]; }
+    var ROTULOS = { "Testa aqui": "Try it", "Ver site": "View site", "Código": "Code", "Pedir código": "Request code", "Pedir código por email": "Request code by email" };
+    function rotulo(t) { return emIngles() && ROTULOS[t] ? ROTULOS[t] : t; }
+    function eSite(l) { return l.t === "Testa aqui" || l.t === "Ver site"; }
+    function temCodigo(p) { return (p.links || []).some(function (l) { return l.t === "Código"; }); }
+    function mailCodigo(p) {
+      if (emIngles()) {
+        return "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Code request: " + p.nome) + "&body=" + encodeURIComponent(
+          "Hi RibeiroMD,\n\nI'd like to request the code for the project \"" + p.nome + "\".\n\n" +
+          "Name: \n\n----------------------------------------------\n\n" +
+          "Contact (WhatsApp, Telegram or Discord): \n\n----------------------------------------------\n\n" +
+          "Reason: \n\nThank you!");
+      }
+      var assunto = "Pedido de código: " + p.nome;
+      var corpo = "Olá RibeiroMD,\n\nGostava de pedir o código do projeto \"" + p.nome + "\".\n\n" +
+        "Nome: \n\n----------------------------------------------\n\n" +
+        "Contacto (WhatsApp, Telegram ou Discord): \n\n----------------------------------------------\n\n" +
+        "Motivo: \n\nObrigado!";
+      return "mailto:" + EMAIL + "?subject=" + encodeURIComponent(assunto) + "&body=" + encodeURIComponent(corpo);
+    }
+
+    function desenharGrid() {
+      var cat = catAtiva();
+      var sub = subDe(cat);
+      var alvo = sub || cat;
+      tabDesc.textContent = tx(alvo, "desc");
+      document.getElementById("statsbtn").hidden = !(sub && sub.id === "mods");
+      grid.setAttribute("aria-labelledby", sub ? "subtab-" + sub.id : "tab-" + cat.id);
+      grid.textContent = "";
+      grid.classList.toggle("destaques", cat.id === "destaques");
+      alvo.itens.forEach(function (p) {
+        var card = el("div", "project");
+        card.setAttribute("role", "button");
+        card.tabIndex = 0;
+        // só os destaques têm capa; nas outras abas os cartões ficam compactos
+        if (cat.id === "destaques") card.appendChild(capa(p));
+        card.appendChild(el("span", "tag", tx(p, "tag")));
+        var h = el("h3", null, tx(p, "nome"));
+        if (p.estado === "publicado") h.appendChild(el("span", "badge", emIngles() ? "Published" : "Publicado"));
+        if (p.estado === "dev") h.appendChild(el("span", "badge dev", emIngles() ? "In development" : "Em desenvolvimento"));
+        card.appendChild(h);
+        card.appendChild(el("p", null, tx(p, "resumo")));
+        if (p.downloads != null) {
+          var dl = el("span", "dl", "⬇ " + p.downloads + " downloads");
+          card.appendChild(dl);
+          if (p.modrinth) somarModrinth(p, dl);
+        }
+        var foot = el("div", "pfoot");
+        var links = el("div", "plinks");
+        var lista = (p.links || []).slice(0, temCodigo(p) ? 2 : 1);
+        if (!temCodigo(p) && !p.privado) lista = lista.concat([{ t: "Pedir código", u: mailCodigo(p), mail: true }]);
+        // projetos com site ("Testa aqui" / "Ver site") mostram só o botão e o CurseForge, sem o link do código
+        var testa = (p.links || []).filter(eSite);
+        if (testa.length) lista = testa.concat((p.links || []).filter(function (l) { return l.t === "CurseForge"; }));
+        lista.forEach(function (l) {
+          var a = el("a", eSite(l) ? "testa" : null, rotulo(l.t));
+          a.href = l.u;
+          if (!l.mail) { a.target = "_blank"; a.rel = "noopener"; }
+          a.addEventListener("click", function (e) { e.stopPropagation(); });
+          links.appendChild(a);
+        });
+        if (p.privado) links.appendChild(el("span", null, emIngles() ? "Private" : "Privado"));
+        var logos = el("div", "pico");
+        (p.tech || []).forEach(function (t) {
+          if (!ICONOS[t]) return;
+          var i = el("span", "pico-i");
+          i.title = t; i.setAttribute("aria-label", t);
+          i.innerHTML = ICONOS[t];
+          logos.appendChild(i);
+        });
+        foot.appendChild(links);
+        foot.appendChild(logos);
+        card.appendChild(foot);
+        card.addEventListener("click", function () { abrir(p, card); });
+        card.addEventListener("keydown", function (e) {
+          if (e.target === card && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); abrir(p, card); }
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    function capa(p) {
+      if (p.imagem) {
+        var c = el("div", "capa");
+        var img = el("img");
+        img.src = p.imagem; img.alt = "";
+        c.appendChild(img);
+        return c;
+      }
+      var v = el("div", "capa vazia");
+      var t = (p.tech || []).filter(function (t) { return ICONOS[t]; })[0];
+      if (t) v.innerHTML = ICONOS[t];
+      return v;
+    }
+    function somarModrinth(p, dl) {
+      fetch("https://api.modrinth.com/v2/project/" + encodeURIComponent(p.modrinth))
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) {
+          p.total = (p.downloads || 0) + (d.downloads || 0);
+          dl.textContent = "⬇ " + p.total + " downloads";
+        })
+        .catch(function () {});
+    }
+
+    function desenhar() { desenharTabs(); desenharGrid(); }
+
+    function abrir(p, card) {
+      ultimoCard = card;
+      document.getElementById("dlg-tag").textContent = tx(p, "tag");
+      document.getElementById("dlg-title").textContent = tx(p, "nome");
+      var body = document.getElementById("dlg-body");
+      body.textContent = "";
+      var velha = dlg.querySelector(".dlg-capa");
+      if (velha) velha.remove();
+      if (p.imagem) {
+        var im = el("img", "dlg-capa");
+        im.src = p.imagem; im.alt = "";
+        body.before(im);
+      }
+      body.appendChild(el("p", null, tx(p, "detalhes")));
+      body.appendChild(el("h4", null, emIngles() ? "Features" : "Funcionalidades"));
+      var ul = el("ul");
+      tx(p, "funcionalidades").forEach(function (f) { ul.appendChild(el("li", null, f)); });
+      body.appendChild(ul);
+      var eMod = /^Mod ·/.test(p.tag || "");
+      body.appendChild(el("h4", null, eMod ? "Loaders" : (emIngles() ? "Tech stack" : "Tecnologias")));
+      body.appendChild(chips(p.tech));
+      if (p.downloads != null) body.appendChild(el("p", "dl-line", "⬇ " + (p.total || p.downloads) + " downloads"));
+      var box = el("div", "dlg-links");
+      var botoes = (p.links || []).slice();
+      if (!temCodigo(p) && !p.privado) botoes.push({ t: "Pedir código por email", u: mailCodigo(p), mail: true });
+      botoes.forEach(function (l, i) {
+        var a = el("a", i === 0 ? "btn" : "btn ghost", rotulo(l.t));
+        a.href = l.u;
+        if (!l.mail) { a.target = "_blank"; a.rel = "noopener"; }
+        box.appendChild(a);
+      });
+      if (p.privado) box.appendChild(el("span", "privado", emIngles() ? "Private" : "Privado"));
+      body.appendChild(box);
+      dlg.showModal();
+    }
+
+    dlg.addEventListener("close", function () { if (ultimoCard) ultimoCard.focus(); });
+
+    // Abrir diretamente um separador: #apps, #android, #automacoes, #minecraft, #mods, #plugins...
+    var h = location.hash.replace("#", "");
+    var abrirProjetos = false;
+    CATEGORIAS.forEach(function (c) {
+      if (c.id === h) { ativa = c.id; abrirProjetos = true; }
+      (c.subs || []).forEach(function (s) {
+        if (s.id === h) { ativa = c.id; subAtiva[c.id] = s.id; abrirProjetos = true; }
+      });
+    });
+    if (abrirProjetos) {
+      window.addEventListener("load", function () { document.getElementById("projetos").scrollIntoView(); });
+    }
+
+    desenhar();
+    window.aoMudarIdioma.push(desenhar);
+
+    // contadores da secção GitHub, a partir da lista de projetos
+    var todos = [];
+    window.PROJETOS.forEach(function (c) {
+      (c.itens || []).forEach(function (p) { todos.push(p); });
+      (c.subs || []).forEach(function (s) { s.itens.forEach(function (p) { todos.push(p); }); });
+    });
+    document.getElementById("gh-projetos").textContent = todos.length;
+    document.getElementById("hero-projetos").textContent = todos.length;
+  })();
+
+  document.getElementById("ano").textContent = new Date().getFullYear();
+
+  // idioma: lembra a escolha; na primeira visita segue o browser
+  (function () {
+    var TEXTOS = {
+      pt: { title: "RibeiroMD", desc: "Portefólio Ribeiro", botao: "ENG", fechar: "Fechar", cats: "Categorias de projetos", subs: "Subcategorias",
+            avatar: "Avatar do Ribeiro: personagem de cabelo castanho a saborear uma chávena de café", foto: "Foto de perfil do GitHub", grafico: "Gráfico de contribuições do GitHub nos últimos 6 meses" },
+      en: { title: "RibeiroMD", desc: "Ribeiro's portfolio", botao: "PT", fechar: "Close", cats: "Project categories", subs: "Subcategories",
+            avatar: "Ribeiro's avatar: a brown-haired character enjoying a cup of coffee", foto: "GitHub profile picture", grafico: "GitHub contributions chart for the last 6 months" }
+    };
+    function mudaIdioma(l, inicio) {
+      var t = TEXTOS[l];
+      document.documentElement.lang = l;
+      document.title = t.title;
+      document.querySelector('meta[name="description"]').content = t.desc;
+      document.getElementById("lang").textContent = t.botao;
+      document.querySelectorAll(".close").forEach(function (b) { b.setAttribute("aria-label", t.fechar); });
+      document.getElementById("tabs").setAttribute("aria-label", t.cats);
+      document.getElementById("subtabs").setAttribute("aria-label", t.subs);
+      document.querySelector(".avatar img").alt = t.avatar;
+      document.querySelector(".gh-pic").alt = t.foto;
+      document.getElementById("gh-grid").setAttribute("aria-label", t.grafico);
+      if (!inicio) window.aoMudarIdioma.forEach(function (f) { f(); });
+      try { localStorage.setItem("lang", l); } catch (e) {}
+    }
+    var guardado = null;
+    try { guardado = localStorage.getItem("lang"); } catch (e) {}
+    if (guardado !== "pt" && guardado !== "en") guardado = navigator.language.toLowerCase().indexOf("pt") === 0 ? "pt" : "en";
+    mudaIdioma(guardado, false);
+    document.getElementById("lang").addEventListener("click", function () {
+      mudaIdioma(document.documentElement.lang === "en" ? "pt" : "en");
+    });
+  })();
+
+  document.querySelectorAll("dialog").forEach(function (dlg) {
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg || e.target.closest("[data-close]")) dlg.close();
+    });
+  });
+</script>
+</body>
+</html>
